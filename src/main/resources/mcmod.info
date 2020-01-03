@@ -1,0 +1,18 @@
+[
+  {
+    "modid": "pixeljobs",
+    "name": "Pixeljobs",
+    "description": "A Pixelmon Generations jobs plugin",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [
+      "Lypaka"
+    ],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
