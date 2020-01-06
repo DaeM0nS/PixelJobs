@@ -6,14 +6,14 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import ninja.leaping.configurate.ConfigurationNode;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.format.TextColors;
 
 public class killListener {
     public killListener (PixelJobs plugin) {
         this.plugin = plugin;
-        this.config = plugin.getConfigNode();
     }
     public PixelJobs plugin;
-    public ConfigurationNode config;
+    public ConfigurationNode config = PixelJobs.INSTANCE.config;
 
     @SubscribeEvent
     public void onCatch(BeatWildPixelmonEvent e) {
@@ -30,20 +30,20 @@ public class killListener {
                             //Checks if the job requires the Pokemon to be shiny, and then checks if the Pokemon is shiny
                             if (config.getNode("Kill", "Job " + i, "has to be shiny").getValue().equals(true)) {
                                 if (e.wpp.controlledPokemon.get(0).pokemon.isShiny()) {
-                                    player.sendMessage(Text.of("You killed a " + e.wpp.controlledPokemon.get(0).pokemon.getName() + "! You earned " + config.getNode("Kill", "Job " + i, "Reward").getInt() + "!"));
+                                    player.sendMessage(Text.of(TextColors.GOLD, "[", TextColors.DARK_RED, "PixelJobs", TextColors.GOLD, "] ", TextColors.WHITE, "You killed a " + e.wpp.controlledPokemon.get(0).pokemon.getName() + "! You earned " + config.getNode("Kill", "Job " + i, "Reward").getInt() + "!"));
                                     plugin.pay(player, config.getNode("Kill", "Job " + i, "Reward").getInt());
                                 }
                             } else {
-                                player.sendMessage(Text.of("You killed a " + e.wpp.controlledPokemon.get(0).pokemon.getName() + "! You earned " + config.getNode("Kill", "Job " + i, "Reward").getInt() + "!"));
+                                player.sendMessage(Text.of(TextColors.GOLD, "[", TextColors.DARK_RED, "PixelJobs", TextColors.GOLD, "] ", TextColors.WHITE, "You killed a " + e.wpp.controlledPokemon.get(0).pokemon.getName() + "! You earned " + config.getNode("Kill", "Job " + i, "Reward").getInt() + "!"));
                             }
                         } else if (config.getNode("Kill", "Job " + i, "Nature").getValue().toString().equals("none")) {
                             if (config.getNode("Kill", "Job " + i, "has to be shiny").getValue().equals(true)) {
                                 if (e.wpp.controlledPokemon.get(0).pokemon.isShiny()) {
-                                    player.sendMessage(Text.of("You killed a " + e.wpp.controlledPokemon.get(0).pokemon.getName() + "! You earned " + config.getNode("Kill", "Job " + i, "Reward").getInt() + "!"));
+                                    player.sendMessage(Text.of(TextColors.GOLD, "[", TextColors.DARK_RED, "PixelJobs", TextColors.GOLD, "] ", TextColors.WHITE, "You killed a " + e.wpp.controlledPokemon.get(0).pokemon.getName() + "! You earned " + config.getNode("Kill", "Job " + i, "Reward").getInt() + "!"));
                                     plugin.pay(player, config.getNode("Kill", "Job " + i, "Reward").getInt());
                                 }
                             } else {
-                                player.sendMessage(Text.of("You killed a " + e.wpp.controlledPokemon.get(0).pokemon.getName() + "! You earned " + config.getNode("Kill", "Job " + i, "Reward").getInt() + "!"));
+                                player.sendMessage(Text.of(TextColors.GOLD, "[", TextColors.DARK_RED, "PixelJobs", TextColors.GOLD, "] ", TextColors.WHITE, "You killed a " + e.wpp.controlledPokemon.get(0).pokemon.getName() + "! You earned " + config.getNode("Kill", "Job " + i, "Reward").getInt() + "!"));
                             }
                         }
                     } else if (config.getNode("Kill", "Job " + i, "Level").getInt() == 0) {
@@ -51,11 +51,11 @@ public class killListener {
                             //Checks if the job requires the Pokemon to be shiny, and then checks if the Pokemon is shiny
                             if (config.getNode("Kill", "Job " + i, "has to be shiny").getValue().equals(true)) {
                                 if (e.wpp.controlledPokemon.get(0).pokemon.isShiny()) {
-                                    player.sendMessage(Text.of("You killed a " + e.wpp.controlledPokemon.get(0).pokemon.getName() + "! You earned " + config.getNode("Kill", "Job " + i, "Reward").getInt() + "!"));
+                                    player.sendMessage(Text.of(TextColors.GOLD, "[", TextColors.DARK_RED, "PixelJobs", TextColors.GOLD, "] ", TextColors.WHITE, "You killed a " + e.wpp.controlledPokemon.get(0).pokemon.getName() + "! You earned " + config.getNode("Kill", "Job " + i, "Reward").getInt() + "!"));
                                     plugin.pay(player, config.getNode("Kill", "Job " + i, "Reward").getInt());
                                 }
                             } else {
-                                player.sendMessage(Text.of("You killed a " + e.wpp.controlledPokemon.get(0).pokemon.getName() + "! You earned " + config.getNode("Kill", "Job " + i, "Reward").getInt() + "!"));
+                                player.sendMessage(Text.of(TextColors.GOLD, "[", TextColors.DARK_RED, "PixelJobs", TextColors.GOLD, "] ", TextColors.WHITE, "You killed a " + e.wpp.controlledPokemon.get(0).pokemon.getName() + "! You earned " + config.getNode("Kill", "Job " + i, "Reward").getInt() + "!"));
                             }
                         }
                     }

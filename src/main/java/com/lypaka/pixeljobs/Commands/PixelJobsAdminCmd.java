@@ -13,6 +13,7 @@ import org.spongepowered.api.command.spec.CommandExecutor;
 import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.text.Text;
+import org.spongepowered.api.text.format.TextColors;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -20,11 +21,10 @@ import java.time.LocalDateTime;
 public class PixelJobsAdminCmd implements CommandExecutor {
     public PixelJobsAdminCmd (PixelJobs plugin) {
         this.plugin = plugin;
-        this.config = plugin.getConfigNode();
         this.loader = plugin.getLoader();
     }
     public PixelJobs plugin;
-    public ConfigurationNode config;
+    public ConfigurationNode config = PixelJobs.INSTANCE.config;
     public ConfigurationLoader<CommentedConfigurationNode> loader;
 
     public static CommandSpec create() {
@@ -53,9 +53,9 @@ public class PixelJobsAdminCmd implements CommandExecutor {
             int money = args.<Integer>getOne("reward").get();
             int time = args.<Integer>getOne("time").get();
             if (mode.equals("create")) {
-                int number = config.getNode("Number of", jobType + " jobs").getInt();
+                int number = PixelJobs.INSTANCE.config.getNode("Number of", jobType + " jobs").getInt();
                 for (int i = 1; i <= number + 1; i++) {
-                    if (config.getNode(jobType, "Job " + i).isVirtual()) {
+                    if (PixelJobs.INSTANCE.config.getNode(jobType, "Job " + i).isVirtual()) {
                         try {
                             config.getNode(jobType, "Job " + i, "Pokemon").setValue(name);
                             config.getNode(jobType, "Job " + i, "Reward").setValue(money);
@@ -86,7 +86,7 @@ public class PixelJobsAdminCmd implements CommandExecutor {
                         } catch (IOException er) {
                             er.printStackTrace();
                         }
-                        player.sendMessage(Text.of("A " + jobType + " job has been created with the values: " + name + " " + money + " " + time + " " + args.<String>getOne("nature").orElse("Any") + " " + args.<Integer>getOne("level").orElse(0)));
+                        player.sendMessage(Text.of(TextColors.GOLD, "[", TextColors.DARK_RED, "PixelJobs", TextColors.GOLD, "] ", TextColors.WHITE, "A " + jobType + " job has been created with the values: " + name + " " + money + " " + time + " " + args.<String>getOne("nature").orElse("Any") + " " + args.<Integer>getOne("level").orElse(0)));
                     }
                 }
             }

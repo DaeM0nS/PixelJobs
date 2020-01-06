@@ -161,19 +161,15 @@ public class pages {
             int nowHours = LocalDateTime.now().getHour();
             if (nowHours > 12) {
                 if (nowHours - 12 >= hours) {
-                    int number = nowHours - 12 - hours;
-                    return number;
+                    return nowHours - 12 - hours;
                 } else {
-                    int number = hours - nowHours;
-                    return number;
+                    return hours - nowHours;
                 }
             } else if (nowHours < 12) {
                 if (nowHours >= hours) {
-                    int number = nowHours - hours;
-                    return number;
+                    return nowHours - hours;
                 } else {
-                    int number = hours - nowHours;
-                    return number;
+                    return hours - nowHours;
                 }
             }
         } else {
@@ -184,16 +180,13 @@ public class pages {
                     int number = nowHours - 12 - hours;
                     return number;
                 } else {
-                    int number = hours - nowHours;
-                    return number;
+                    return hours - nowHours;
                 }
             } else if (nowHours < 12) {
                 if (nowHours >= hours) {
-                    int number = nowHours - hours;
-                    return number;
+                    return nowHours - hours;
                 } else {
-                    int number = hours - nowHours;
-                    return number;
+                    return hours - nowHours;
                 }
             }
         }
@@ -204,7 +197,7 @@ public class pages {
         LocalDateTime time = LocalDateTime.parse(node.getValue().toString());
         int nowMins = LocalDateTime.now().getMinute();
         if (nowMins > time.getMinute()) {
-            int number = nowMins = time.getMinute();
+            int number = nowMins - time.getMinute();
             return number;
         } else {
             int number = time.getMinute() - nowMins;

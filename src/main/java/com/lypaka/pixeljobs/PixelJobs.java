@@ -8,31 +8,22 @@ import com.lypaka.pixeljobs.Listeners.evolveListener;
 import com.lypaka.pixeljobs.Listeners.killListener;
 import com.lypaka.pixeljobs.Utils.TimerTask;
 import com.pixelmonmod.pixelmon.Pixelmon;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import ninja.leaping.configurate.ConfigurationNode;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
-import org.slf4j.Logger;
 import org.spongepowered.api.Sponge;
-import org.spongepowered.api.config.ConfigDir;
 import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.cause.EventContext;
+import org.spongepowered.api.event.cause.EventContextKey;
+import org.spongepowered.api.event.cause.EventContextKeys;
 import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartingServerEvent;
 import org.spongepowered.api.plugin.Plugin;
-import org.spongepowered.api.scheduler.Task;
+import org.spongepowered.api.plugin.PluginContainer;
 import org.spongepowered.api.service.economy.Currency;
 import org.spongepowered.api.service.economy.EconomyService;
 import org.spongepowered.api.service.economy.account.UniqueAccount;
@@ -40,6 +31,7 @@ import org.spongepowered.api.service.economy.account.UniqueAccount;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Path;
+import java.util.Map;
 import java.util.Optional;
 
 @Plugin(
@@ -61,19 +53,11 @@ public class PixelJobs {
     public Path defaultConfig;
 
     @Inject
-    @ConfigDir(sharedRoot = false)
-    public Path configDir;
-
-
-    @Inject
-    public Logger logger;
+    private PluginContainer container;
 
     public ConfigurationNode config;
 
     public static PixelJobs INSTANCE;
-    public PixelJobs plugin;
-
-
 
     @Listener
     public void onPreInit (GamePreInitializationEvent event) {
@@ -81,6 +65,7 @@ public class PixelJobs {
             config = loader.load();
             if (!defaultConfig.toFile().exists()) {
                 config.getNode("Are Jobs enabled").setValue(true);
+                config.getNode("How often (in minutes) the code checks for expired jobs").setValue(1);
                 config.getNode("Types of jobs").setValue("Catch,Kill,Evolve");
                 config.getNode("Number of", "Catch jobs").setValue(1);
                 config.getNode("Number of", "Kill jobs").setValue(1);
@@ -148,6 +133,7 @@ public class PixelJobs {
     public void reloadConfig(ConfigurationNode config) {
         try {
             config.getNode("Are Jobs enabled").setValue(config.getNode("Are Jobs enabled").getValue());
+            config.getNode("How often (in minutes) the code checks for expired jobs").setValue(config.getNode("How often (in minutes) the code checks for expired jobs").getValue());
             config.getNode("Catch").setValue(config.getNode("Catch").getValue());
             config.getNode("Kill").setValue(config.getNode("Kill").getValue());
             config.getNode("Evolve").setValue(config.getNode("Evolve").getValue());
@@ -170,12 +156,12 @@ public class PixelJobs {
     }
 
     public void pay (Player player, int money) {
-        Cause cause = Cause.builder().build(EventContext.empty());
+        EventContext eventContext = EventContext.builder().add(EventContextKeys.PLUGIN, container).build();
         Optional<EconomyService> econ = Sponge.getServiceManager().provide(EconomyService.class);
         if (econ.isPresent()) {
             Optional<UniqueAccount> a = econ.get().getOrCreateAccount(player.getUniqueId());
             Currency defaultCur = econ.get().getDefaultCurrency();
-            a.get().deposit(defaultCur, BigDecimal.valueOf(money), cause);
+            a.get().deposit(defaultCur, BigDecimal.valueOf(money), Cause.of(eventContext, container));
         }
     }
 
