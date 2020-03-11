@@ -1,23 +1,16 @@
 package com.lypaka.pixeljobs;
 
-import com.google.inject.Inject;
-import com.lypaka.pixeljobs.Commands.PixelJobsAdminCmd;
-import com.lypaka.pixeljobs.Commands.PixelJobsCmd;
-import com.lypaka.pixeljobs.Listeners.catchListener;
-import com.lypaka.pixeljobs.Listeners.evolveListener;
-import com.lypaka.pixeljobs.Listeners.killListener;
-import com.lypaka.pixeljobs.Utils.TimerTask;
-import com.pixelmonmod.pixelmon.Pixelmon;
-import ninja.leaping.configurate.ConfigurationNode;
-import ninja.leaping.configurate.commented.CommentedConfigurationNode;
-import ninja.leaping.configurate.loader.ConfigurationLoader;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.nio.file.Path;
+import java.util.Optional;
+
 import org.spongepowered.api.Sponge;
 import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.entity.living.player.Player;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.cause.Cause;
 import org.spongepowered.api.event.cause.EventContext;
-import org.spongepowered.api.event.cause.EventContextKey;
 import org.spongepowered.api.event.cause.EventContextKeys;
 import org.spongepowered.api.event.game.GameReloadEvent;
 import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
@@ -28,19 +21,27 @@ import org.spongepowered.api.service.economy.Currency;
 import org.spongepowered.api.service.economy.EconomyService;
 import org.spongepowered.api.service.economy.account.UniqueAccount;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.nio.file.Path;
-import java.util.Map;
-import java.util.Optional;
+import com.google.inject.Inject;
+import com.lypaka.pixeljobs.Commands.PixelJobsAdminCmd;
+import com.lypaka.pixeljobs.Commands.PixelJobsCmd;
+import com.lypaka.pixeljobs.Listeners.catchListener;
+import com.lypaka.pixeljobs.Listeners.evolveListener;
+import com.lypaka.pixeljobs.Listeners.killListener;
+import com.lypaka.pixeljobs.Utils.TimerTask;
+import com.pixelmonmod.pixelmon.Pixelmon;
+
+import ninja.leaping.configurate.ConfigurationNode;
+import ninja.leaping.configurate.commented.CommentedConfigurationNode;
+import ninja.leaping.configurate.loader.ConfigurationLoader;
 
 @Plugin(
         id = "pixeljobs",
         name = "PixelJobs",
-        version = "1.0.0",
+        version = "1.0.1-DaeM0nS-Reforged",
         description = "A Pixelmon jobs plugin",
         authors = {
-                "Lypaka"
+                "Lypaka",
+                "DaeM0nS"
         }
 )
 public class PixelJobs {

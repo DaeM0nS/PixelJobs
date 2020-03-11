@@ -27,10 +27,10 @@ public class catchListener {
                     //Checks Pokemon's level and checks to make sure level in config is not 0 (disabled/any level)
                     if (config.getNode("Catch", "Job " + i, "Level").getInt() != 0 && config.getNode("Catch", "Job " + i, "Level").getInt() == e.getPokemon().getLvl().getLevel()) {
                         //Checks natures, if not disabled
-                        if (!config.getNode("Catch", "Job " + i, "Nature").getValue().toString().equals("none") && config.getNode("Catch", "Job " + i, "Nature").getValue().toString().equals(e.getPokemon().getNature().toString())) {
+                        if (!config.getNode("Catch", "Job " + i, "Nature").getValue().toString().equals("none") && config.getNode("Catch", "Job " + i, "Nature").getValue().toString().equals(e.getPokemon().getPokemonData().getNature().toString())) {
                             //Checks if the job requires the Pokemon to be shiny, and then checks if the Pokemon is shiny
                             if (config.getNode("Catch", "Job " + i, "has to be shiny").getValue().equals(true)) {
-                                if (e.getPokemon().isShiny()) {
+                                if (e.getPokemon().getPokemonData().isShiny()) {
                                     player.sendMessage(Text.of(TextColors.GOLD, "[", TextColors.DARK_RED, "PixelJobs", TextColors.GOLD, "] ", TextColors.WHITE, "You caught a " + e.getPokemon().getName() + "! You earned " + config.getNode("Catch", "Job " + i, "Reward").getInt() + "!"));
                                     plugin.pay(player, config.getNode("Catch", "Job " + i, "Reward").getInt());
                                 }
@@ -40,7 +40,7 @@ public class catchListener {
                             }
                         } else if (config.getNode("Catch", "Job " + i, "Nature").getValue().toString().equals("none")) {
                             if (config.getNode("Catch", "Job " + i, "has to be shiny").getValue().equals(true)) {
-                                if (e.getPokemon().isShiny()) {
+                                if (e.getPokemon().getPokemonData().isShiny()) {
                                     player.sendMessage(Text.of(TextColors.GOLD, "[", TextColors.DARK_RED, "PixelJobs", TextColors.GOLD, "] ", TextColors.WHITE, "You caught a " + e.getPokemon().getName() + "! You earned " + config.getNode("Catch", "Job " + i, "Reward").getInt() + "!"));
                                     plugin.pay(player, config.getNode("Catch", "Job " + i, "Reward").getInt());
                                 }
@@ -50,10 +50,10 @@ public class catchListener {
                             }
                         }
                     } else if (config.getNode("Catch", "Job " + i, "Level").getInt() == 0) {
-                        if (!config.getNode("Catch", "Job " + i, "Nature").getValue().toString().equals("none") && config.getNode("Catch", "Job " + i, "Nature").getValue().toString().equals(e.getPokemon().getNature().toString())) {
+                        if (!config.getNode("Catch", "Job " + i, "Nature").getValue().toString().equals("none") && config.getNode("Catch", "Job " + i, "Nature").getValue().toString().equals(e.getPokemon().getPokemonData().getNature().toString())) {
                             //Checks if the job requires the Pokemon to be shiny, and then checks if the Pokemon is shiny
                             if (config.getNode("Catch", "Job " + i, "has to be shiny").getValue().equals(true)) {
-                                if (e.getPokemon().isShiny()) {
+                                if (e.getPokemon().getPokemonData().isShiny()) {
                                     player.sendMessage(Text.of(TextColors.GOLD, "[", TextColors.DARK_RED, "PixelJobs", TextColors.GOLD, "] ", TextColors.WHITE, "You caught a " + e.getPokemon().getName() + "! You earned " + config.getNode("Catch", "Job " + i, "Reward").getInt() + "!"));
                                     plugin.pay(player, config.getNode("Catch", "Job " + i, "Reward").getInt());
                                 }
@@ -63,7 +63,7 @@ public class catchListener {
                             }
                         } else if (config.getNode("Catch", "Job " + i, "Nature").getValue().toString().equals("none")) {
                             if (config.getNode("Catch", "Job " + i, "has to be shiny").getValue().equals(true)) {
-                                if (e.getPokemon().isShiny()) {
+                                if (e.getPokemon().getPokemonData().isShiny()) {
                                     player.sendMessage(Text.of(TextColors.GOLD, "[", TextColors.DARK_RED, "PixelJobs", TextColors.GOLD, "] ", TextColors.WHITE, "You caught a " + e.getPokemon().getName() + "! You earned " + config.getNode("Catch", "Job " + i, "Reward").getInt() + "!"));
                                     plugin.pay(player, config.getNode("Catch", "Job " + i, "Reward").getInt());
                                 }
